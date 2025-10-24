@@ -1,0 +1,72 @@
+<form [formGroup]="beerForm">
+  <mat-form-field class="w-100 mb-2">
+    <input matInput placeholder="SKU *" formControlName="sku" />
+    <mat-error *ngIf="f.sku.errors">
+      <span *ngIf="f.sku.errors.required">El SKU es requerido</span>
+      <span *ngIf="f.sku.errors.minlength"
+        >El SKU debe tener al menos 3 caracteres</span
+      >
+      <span *ngIf="f.sku.errors.pattern"
+        >El SKU solo debe contener números</span
+      >
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-2">
+    <input matInput placeholder="Nombre *" formControlName="name" />
+    <mat-error *ngIf="submitted && f.name.errors">
+      <span *ngIf="f.name.errors.required">El nombre es requerido</span>
+      <span *ngIf="f.name.errors.minlength"
+        >El nombre debe tener al menos 3 caracteres</span
+      >
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-2">
+    <input matInput placeholder="Cervecería *" formControlName="brewery" />
+    <mat-error *ngIf="submitted && f.brewery.errors">
+      <span *ngIf="f.brewery.errors.required">La cervecería es requerida</span>
+      <span *ngIf="f.brewery.errors.minlength"
+        >La cervecería debe tener al menos 3 caracteres</span
+      >
+    </mat-error>
+  </mat-form-field>
+
+  <div class="mb-2">
+    <label class="d-block mb-1"
+      >ABV: {{ f.abv.value | number: '1.1-1' }}%</label
+    >
+    <mat-slider
+      class="w-100"
+      [min]="0"
+      [max]="50"
+      [step]="0.1"
+      [thumb-label]="true"
+      [value]="f.abv.value"
+      (input)="onAbvChange($event.value)"
+    ></mat-slider>
+  </div>
+
+  <div class="mb-2">
+    <label class="d-block mb-1">IBU: {{ f.ibu.value }}</label>
+    <mat-slider
+      class="w-100"
+      [min]="0"
+      [max]="100"
+      [step]="1"
+      [thumb-label]="true"
+      [value]="f.ibu.value"
+      (input)="onIbuChange($event.value)"
+    ></mat-slider>
+  </div>
+
+  <mat-form-field class="w-100">
+    <input matInput placeholder="País *" formControlName="country" />
+    <mat-error *ngIf="submitted && f.country.errors">
+      <span *ngIf="f.country.errors.required">El país es requerido</span>
+      <span *ngIf="f.country.errors.minlength"
+        >El país debe tener al menos 3 caracteres</span
+      >
+    </mat-error>
+  </mat-form-field>
+</form>

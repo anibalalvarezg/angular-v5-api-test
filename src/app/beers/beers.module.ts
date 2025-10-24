@@ -9,6 +9,7 @@ import { BeerEditDialogComponent } from './components/beer-edit-dialog/beer-edit
 import { BeerDeleteDialogComponent } from './components/beer-delete-dialog/beer-delete-dialog.component';
 import { BeerTableComponent } from './components/beer-table/beer-table.component';
 import { BeerCardsComponent } from './components/beer-cards/beer-cards.component';
+import { BeerFormComponent } from './components/beer-form/beer-form.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
@@ -19,6 +20,7 @@ import { BeerCardsComponent } from './components/beer-cards/beer-cards.component
     BeerDeleteDialogComponent,
     BeerTableComponent,
     BeerCardsComponent,
+    BeerFormComponent,
   ],
   exports: [BeerListComponent],
   entryComponents: [

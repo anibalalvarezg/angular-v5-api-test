@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Beer } from '../../../core/models/beer.model';
 
@@ -8,43 +8,14 @@ import { Beer } from '../../../core/models/beer.model';
   templateUrl: './beer-add-dialog.component.html',
   styleUrls: ['./beer-add-dialog.component.css'],
 })
-export class BeerAddDialogComponent implements OnInit {
+export class BeerAddDialogComponent {
   beerForm: FormGroup;
   submitted = false;
 
-  constructor(
-    private fb: FormBuilder,
-    public dialogRef: MatDialogRef<BeerAddDialogComponent>
-  ) {}
+  constructor(public dialogRef: MatDialogRef<BeerAddDialogComponent>) {}
 
-  ngOnInit(): void {
-    this.beerForm = this.fb.group({
-      sku: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.pattern(/^[0-9]+$/),
-        ],
-      ],
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      brewery: ['', [Validators.required, Validators.minLength(3)]],
-      abv: [0, [Validators.required]],
-      ibu: [0, [Validators.required]],
-      country: ['', [Validators.required, Validators.minLength(3)]],
-    });
-  }
-
-  get f() {
-    return this.beerForm.controls;
-  }
-
-  onAbvChange(value: number): void {
-    this.beerForm.patchValue({ abv: value });
-  }
-
-  onIbuChange(value: number): void {
-    this.beerForm.patchValue({ ibu: value });
+  onFormChange(form: FormGroup): void {
+    this.beerForm = form;
   }
 
   onCancel(): void {

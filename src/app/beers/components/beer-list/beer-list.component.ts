@@ -3,11 +3,13 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/delay';
 
 import { Beer } from '../../../core/models/beer.model';
 import { BeerState } from '../../../store/beers.state';
 import { selectAllBeers } from '../../../store/beers.selectors';
 import { AddBeer, DeleteBeer, UpdateBeer } from '../../../store/beers.actions';
+import { StartLoading, StopLoading } from '../../../store/ui.actions';
 import { BeerAddDialogComponent } from '../beer-add-dialog/beer-add-dialog.component';
 import { BeerEditDialogComponent } from '../beer-edit-dialog/beer-edit-dialog.component';
 import { BeerDeleteDialogComponent } from '../beer-delete-dialog/beer-delete-dialog.component';
@@ -40,29 +42,34 @@ export class BeerListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const newBeer: Beer = {
-          ...result,
-          rating: '',
-          category: '',
-          sub_category_1: '',
-          sub_category_2: '',
-          sub_category_3: '',
-          description: '',
-          region: '',
-          calories_per_serving_12oz: '',
-          carbs_per_serving_12oz: '',
-          tasting_notes: '',
-          food_pairing: '',
-          suggested_glassware: '',
-          serving_temp_f: '',
-          serving_temp_c: '',
-          beer_type: '',
-          features: '',
-        };
-        this.store.dispatch(new AddBeer(newBeer));
-        this.snackBar.open('Cerveza agregada exitosamente', 'Cerrar', {
-          duration: 3000,
-        });
+        this.store.dispatch(new StartLoading('Agregando cerveza...'));
+
+        setTimeout(() => {
+          const newBeer: Beer = {
+            ...result,
+            rating: '',
+            category: '',
+            sub_category_1: '',
+            sub_category_2: '',
+            sub_category_3: '',
+            description: '',
+            region: '',
+            calories_per_serving_12oz: '',
+            carbs_per_serving_12oz: '',
+            tasting_notes: '',
+            food_pairing: '',
+            suggested_glassware: '',
+            serving_temp_f: '',
+            serving_temp_c: '',
+            beer_type: '',
+            features: '',
+          };
+          this.store.dispatch(new AddBeer(newBeer));
+          this.store.dispatch(new StopLoading());
+          this.snackBar.open('Cerveza agregada exitosamente', 'Cerrar', {
+            duration: 3000,
+          });
+        }, 1000);
       }
     });
   }
@@ -82,10 +89,15 @@ export class BeerListComponent implements OnInit {
 
           dialogRef.afterClosed().subscribe(result => {
             if (result) {
-              this.store.dispatch(new DeleteBeer(sku));
-              this.snackBar.open('Cerveza eliminada exitosamente', 'Cerrar', {
-                duration: 3000,
-              });
+              this.store.dispatch(new StartLoading('Eliminando cerveza...'));
+
+              setTimeout(() => {
+                this.store.dispatch(new DeleteBeer(sku));
+                this.store.dispatch(new StopLoading());
+                this.snackBar.open('Cerveza eliminada exitosamente', 'Cerrar', {
+                  duration: 3000,
+                });
+              }, 1000);
             }
           });
         }
@@ -101,10 +113,15 @@ export class BeerListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.store.dispatch(new UpdateBeer(result));
-        this.snackBar.open('Cerveza actualizada exitosamente', 'Cerrar', {
-          duration: 3000,
-        });
+        this.store.dispatch(new StartLoading('Actualizando cerveza...'));
+
+        setTimeout(() => {
+          this.store.dispatch(new UpdateBeer(result));
+          this.store.dispatch(new StopLoading());
+          this.snackBar.open('Cerveza actualizada exitosamente', 'Cerrar', {
+            duration: 3000,
+          });
+        }, 1000);
       }
     });
   }

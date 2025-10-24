@@ -10,3 +10,23 @@
   align-items: center;
   z-index: 9999;
 }
+
+.app-loader-overlay > div {
+  min-width: 200px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-loader-overlay mat-spinner {
+  margin: 0 auto;
+}
+
+.app-loader-overlay p {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  text-align: center;
+  font-size: 1rem;
+}

@@ -7,3 +7,8 @@ export const selectIsLoading = createSelector(
   selectUiState,
   (state: UiState) => state.isLoading
 );
+
+export const selectLoadingMessage = createSelector(
+  selectUiState,
+  (state: UiState) => state.loadingMessage
+);

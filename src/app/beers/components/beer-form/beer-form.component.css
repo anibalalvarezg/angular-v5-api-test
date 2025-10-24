@@ -1,0 +1,9 @@
+mat-form-field {
+  display: block;
+}
+
+@media (max-width: 575.98px) {
+  mat-form-field {
+    font-size: 0.9rem;
+  }
+}

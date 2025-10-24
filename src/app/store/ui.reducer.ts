@@ -7,6 +7,7 @@ export function uiReducer(state = initialUiState, action: UiActions): UiState {
       return {
         ...state,
         isLoading: true,
+        loadingMessage: action.payload || 'Procesando...',
       };
     case STOP_LOADING:
       return {
