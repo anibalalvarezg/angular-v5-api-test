@@ -1,3 +1,28 @@
 mat-dialog-content {
-  min-width: 400px;
+  min-width: 300px;
+}
+
+@media (max-width: 575.98px) {
+  mat-dialog-content {
+    min-width: unset;
+  }
+
+  h2[mat-dialog-title] {
+    font-size: 1.25rem;
+    padding: 12px 16px;
+  }
+
+  .mat-dialog-content {
+    padding: 16px !important;
+  }
+
+  button[mat-raised-button],
+  button[mat-button] {
+    font-size: 0.9rem;
+    padding: 0 12px;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
 }

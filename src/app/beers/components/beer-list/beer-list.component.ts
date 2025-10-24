@@ -1,8 +1,7 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import 'rxjs/add/operator/take';
 
 import { Beer } from '../../../core/models/beer.model';
@@ -18,37 +17,25 @@ import { BeerDeleteDialogComponent } from '../beer-delete-dialog/beer-delete-dia
   templateUrl: './beer-list.component.html',
   styleUrls: ['./beer-list.component.css'],
 })
-export class BeerListComponent implements OnInit, AfterViewInit {
-  dataSource: MatTableDataSource<Beer>;
-  displayedColumns: string[] = [
-    'sku',
-    'name',
-    'brewery',
-    'abv',
-    'ibu',
-    'country',
-    'actions',
-  ];
+export class BeerListComponent implements OnInit {
+  allBeers: Beer[] = [];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  constructor(private store: Store<BeerState>, private dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource<Beer>([]);
-  }
+  constructor(
+    private store: Store<BeerState>,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.store.select(selectAllBeers).subscribe(beers => {
-      this.dataSource.data = beers;
+      this.allBeers = beers;
     });
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
   }
 
   addBeer() {
     const dialogRef = this.dialog.open(BeerAddDialogComponent, {
       width: '500px',
+      maxWidth: '95vw',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -73,6 +60,9 @@ export class BeerListComponent implements OnInit, AfterViewInit {
           features: '',
         };
         this.store.dispatch(new AddBeer(newBeer));
+        this.snackBar.open('Cerveza agregada exitosamente', 'Cerrar', {
+          duration: 3000,
+        });
       }
     });
   }
@@ -86,12 +76,16 @@ export class BeerListComponent implements OnInit, AfterViewInit {
         if (beer) {
           const dialogRef = this.dialog.open(BeerDeleteDialogComponent, {
             width: '500px',
+            maxWidth: '95vw',
             data: beer,
           });
 
           dialogRef.afterClosed().subscribe(result => {
             if (result) {
               this.store.dispatch(new DeleteBeer(sku));
+              this.snackBar.open('Cerveza eliminada exitosamente', 'Cerrar', {
+                duration: 3000,
+              });
             }
           });
         }
@@ -101,12 +95,16 @@ export class BeerListComponent implements OnInit, AfterViewInit {
   editBeer(beer: Beer) {
     const dialogRef = this.dialog.open(BeerEditDialogComponent, {
       width: '500px',
+      maxWidth: '95vw',
       data: beer,
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.store.dispatch(new UpdateBeer(result));
+        this.snackBar.open('Cerveza actualizada exitosamente', 'Cerrar', {
+          duration: 3000,
+        });
       }
     });
   }

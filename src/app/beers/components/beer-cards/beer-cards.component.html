@@ -1,0 +1,50 @@
+<div>
+  <div class="row">
+    <div class="col-12 col-sm-6 mb-3" *ngFor="let beer of paginatedBeers">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-primary mb-2">{{ beer.name }}</h5>
+          <h6 class="card-subtitle mb-3 text-muted">{{ beer.brewery }}</h6>
+
+          <div class="beer-details">
+            <p class="mb-1"><strong>SKU:</strong> {{ beer.sku }}</p>
+            <p class="mb-1"><strong>ABV:</strong> {{ beer.abv }}</p>
+            <p class="mb-1"><strong>IBU:</strong> {{ beer.ibu }}</p>
+            <p class="mb-1"><strong>País:</strong> {{ beer.country }}</p>
+          </div>
+
+          <div class="d-flex justify-content-end mt-3">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="onEdit(beer)"
+              class="mr-2"
+              title="Editar"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="onDelete(beer.sku)"
+              title="Eliminar"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mt-3" *ngIf="beers.length > 0">
+    <mat-paginator
+      #cardPaginator
+      [length]="beers.length"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 575.98px) {
+  mat-toolbar {
+    padding: 0 8px;
+    min-height: 56px;
+    height: 56px;
+  }
+
+  mat-toolbar span {
+    font-size: 1rem;
+  }
+}

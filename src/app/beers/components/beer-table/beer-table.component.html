@@ -1,0 +1,68 @@
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="sku">
+        <mat-header-cell *matHeaderCellDef>SKU</mat-header-cell>
+        <mat-cell *matCellDef="let beer">{{ beer.sku }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let beer">{{ beer.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="brewery">
+        <mat-header-cell *matHeaderCellDef>Cervecería</mat-header-cell>
+        <mat-cell *matCellDef="let beer">{{ beer.brewery }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="abv">
+        <mat-header-cell *matHeaderCellDef>ABV</mat-header-cell>
+        <mat-cell *matCellDef="let beer">{{ beer.abv }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ibu">
+        <mat-header-cell *matHeaderCellDef>IBU</mat-header-cell>
+        <mat-cell *matCellDef="let beer">{{ beer.ibu }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef>País</mat-header-cell>
+        <mat-cell *matCellDef="let beer">{{ beer.country }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+        <mat-cell *matCellDef="let beer">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="onEdit(beer)"
+            class="mx-1"
+            title="Editar"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="onDelete(beer.sku)"
+            class="mx-1"
+            title="Eliminar"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      #tablePaginator
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

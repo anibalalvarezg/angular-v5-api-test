@@ -1,0 +1,39 @@
+.beer-details p {
+  font-size: 0.9rem;
+}
+
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.card-subtitle {
+  font-size: 0.95rem;
+}
+
+mat-paginator {
+  background: transparent;
+}
+
+@media (max-width: 575.98px) {
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .beer-details p {
+    font-size: 0.85rem;
+  }
+}

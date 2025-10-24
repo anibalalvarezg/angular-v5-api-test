@@ -1,14 +1,14 @@
 <h2 mat-dialog-title>Editar Cerveza</h2>
 
-<mat-dialog-content class="p-4">
+<mat-dialog-content class="p-2">
   <form [formGroup]="beerForm">
     <!-- Campo SKU (deshabilitado) -->
-    <mat-form-field class="w-100 mb-3">
+    <mat-form-field class="w-100 mb-2">
       <input matInput placeholder="SKU *" formControlName="sku" />
     </mat-form-field>
 
     <!-- Campo Nombre -->
-    <mat-form-field class="w-100 mb-3">
+    <mat-form-field class="w-100 mb-2">
       <input matInput placeholder="Nombre *" formControlName="name" />
       <mat-error *ngIf="submitted && f.name.errors">
         <span *ngIf="f.name.errors.required">El nombre es requerido</span>
@@ -19,7 +19,7 @@
     </mat-form-field>
 
     <!-- Campo Cervecería -->
-    <mat-form-field class="w-100 mb-3">
+    <mat-form-field class="w-100 mb-2">
       <input matInput placeholder="Cervecería *" formControlName="brewery" />
       <mat-error *ngIf="submitted && f.brewery.errors">
         <span *ngIf="f.brewery.errors.required"
@@ -32,8 +32,8 @@
     </mat-form-field>
 
     <!-- Campo ABV -->
-    <div class="mb-4">
-      <label class="d-block mb-2"
+    <div class="mb-2">
+      <label class="d-block mb-1"
         >ABV: {{ f.abv.value | number: '1.1-1' }}%</label
       >
       <mat-slider
@@ -48,8 +48,8 @@
     </div>
 
     <!-- Campo IBU -->
-    <div class="mb-4">
-      <label class="d-block mb-2">IBU: {{ f.ibu.value }}</label>
+    <div class="mb-2">
+      <label class="d-block mb-1">IBU: {{ f.ibu.value }}</label>
       <mat-slider
         class="w-100"
         [min]="0"
@@ -62,7 +62,7 @@
     </div>
 
     <!-- Campo País -->
-    <mat-form-field class="w-100 mb-3">
+    <mat-form-field class="w-100">
       <input matInput placeholder="País *" formControlName="country" />
       <mat-error *ngIf="submitted && f.country.errors">
         <span *ngIf="f.country.errors.required">El país es requerido</span>
@@ -74,7 +74,7 @@
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions class="d-flex justify-content-end p-3 m-0">
+<mat-dialog-actions class="d-flex justify-content-end p-2 m-0">
   <button mat-button (click)="onCancel()" class="mr-2">Cancelar</button>
   <button
     mat-raised-button
