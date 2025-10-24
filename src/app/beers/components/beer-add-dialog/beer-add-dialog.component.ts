@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, AsyncValidatorFn } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+
 import { Beer } from '../../../core/models/beer.model';
+import { BeerState } from '../../../store/beers.state';
+import { UniqueSkuValidator } from '../../../core/validators/unique-sku.validator';
 
 @Component({
   selector: 'mh-beer-add-dialog',
@@ -11,8 +15,14 @@ import { Beer } from '../../../core/models/beer.model';
 export class BeerAddDialogComponent {
   beerForm: FormGroup;
   submitted = false;
+  skuAsyncValidator: AsyncValidatorFn;
 
-  constructor(public dialogRef: MatDialogRef<BeerAddDialogComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<BeerAddDialogComponent>,
+    private store: Store<BeerState>
+  ) {
+    this.skuAsyncValidator = UniqueSkuValidator.createValidator(this.store);
+  }
 
   onFormChange(form: FormGroup): void {
     this.beerForm = form;

@@ -2,6 +2,22 @@ mat-form-field {
   display: block;
 }
 
+.validating-hint {
+  color: #2196f3;
+  font-size: 12px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 @media (max-width: 575.98px) {
   mat-form-field {
     font-size: 0.9rem;

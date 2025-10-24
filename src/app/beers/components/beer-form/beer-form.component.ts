@@ -6,7 +6,12 @@ import {
   OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AsyncValidatorFn,
+} from '@angular/forms';
 import { Beer } from '../../../core/models/beer.model';
 
 @Component({
@@ -19,6 +24,7 @@ export class BeerFormComponent implements OnInit {
   @Input() beer: Partial<Beer> | null = null;
   @Input() disableSku = false;
   @Input() submitted = false;
+  @Input() skuAsyncValidator: AsyncValidatorFn | null = null;
   @Output() formChange = new EventEmitter<FormGroup>();
 
   beerForm: FormGroup;
@@ -26,17 +32,24 @@ export class BeerFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    const skuValidators = [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.pattern(/^[0-9]+$/),
+    ];
+
+    const skuAsyncValidators = this.skuAsyncValidator
+      ? [this.skuAsyncValidator]
+      : [];
+
     this.beerForm = this.fb.group({
       sku: [
         {
           value: (this.beer && this.beer.sku) || '',
           disabled: this.disableSku,
         },
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.pattern(/^[0-9]+$/),
-        ],
+        skuValidators,
+        skuAsyncValidators,
       ],
       name: [
         (this.beer && this.beer.name) || '',

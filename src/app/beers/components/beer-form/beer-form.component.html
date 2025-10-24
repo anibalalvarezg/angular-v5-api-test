@@ -1,6 +1,9 @@
 <form [formGroup]="beerForm">
   <mat-form-field class="w-100 mb-2">
     <input matInput placeholder="SKU *" formControlName="sku" />
+    <mat-hint *ngIf="f.sku.pending" class="validating-hint">
+      Verificando disponibilidad...
+    </mat-hint>
     <mat-error *ngIf="f.sku.errors">
       <span *ngIf="f.sku.errors.required">El SKU es requerido</span>
       <span *ngIf="f.sku.errors.minlength"
@@ -8,6 +11,9 @@
       >
       <span *ngIf="f.sku.errors.pattern"
         >El SKU solo debe contener números</span
+      >
+      <span *ngIf="f.sku.errors.skuTaken"
+        >Este SKU ya está en uso. Por favor, elige otro.</span
       >
     </mat-error>
   </mat-form-field>

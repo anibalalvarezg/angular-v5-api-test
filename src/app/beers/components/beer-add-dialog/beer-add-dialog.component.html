@@ -3,6 +3,7 @@
 <mat-dialog-content class="p-2">
   <mh-beer-form
     [submitted]="submitted"
+    [skuAsyncValidator]="skuAsyncValidator"
     (formChange)="onFormChange($event)"
   ></mh-beer-form>
 </mat-dialog-content>
@@ -13,8 +14,9 @@
     mat-raised-button
     color="primary"
     (click)="onSave()"
-    [disabled]="beerForm?.invalid"
+    [disabled]="beerForm?.invalid || beerForm?.pending"
   >
-    Guardar
+    <span *ngIf="!beerForm?.pending">Guardar</span>
+    <span *ngIf="beerForm?.pending">Verificando...</span>
   </button>
 </mat-dialog-actions>
