@@ -2,6 +2,14 @@
 
 ---
 
+## 🌐 Demo en Vivo
+
+**[https://angular-v5-api-test.netlify.app/](https://angular-v5-api-test.netlify.app/)**
+
+Aplicación deployada en Netlify para pruebas y demostración.
+
+---
+
 ## ⚠️ Requisitos
 
 **Node.js v12.22.12 (requerido)**
