@@ -42,6 +42,10 @@ export class BeerListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  addBeer() {
+    alert('Agregar nueva cerveza');
+  }
+
   deleteBeer(sku: string) {
     if (confirm('¿Estás seguro de que deseas eliminar esta cerveza?')) {
       this.store.dispatch(new DeleteBeer(sku));
