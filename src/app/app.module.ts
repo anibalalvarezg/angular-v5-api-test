@@ -11,6 +11,9 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { beerReducer } from './store/beers.reducer';
 
 import { BeerDataService } from './core/services/beer-data.service';
+import { DialogService } from './core/services/dialog.service';
+import { NotificationService } from './core/services/notification.service';
+import { BeerFacadeService } from './core/services/beer-facade.service';
 import { MaterialModule } from './material/material.module';
 import { uiReducer } from './store/ui.reducer';
 import { SharedModule } from './shared/shared.module';
@@ -42,7 +45,12 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     ),
     EffectsModule.forRoot([BeersEffects]),
   ],
-  providers: [BeerDataService],
+  providers: [
+    BeerDataService,
+    DialogService,
+    NotificationService,
+    BeerFacadeService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
