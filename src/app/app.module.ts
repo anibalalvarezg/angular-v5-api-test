@@ -19,7 +19,7 @@ export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({
-    keys: ['beers'], // Solo persistir beers, NO ui
+    keys: ['beers'],
     rehydrate: true,
   })(reducer);
 }
