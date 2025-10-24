@@ -1,6 +1,8 @@
 import {
   BeerActions,
+  LOAD_BEERS,
   LOAD_BEERS_SUCCESS,
+  LOAD_BEERS_FAILURE,
   ADD_BEER,
   DELETE_BEER,
   UPDATE_BEER,
@@ -12,11 +14,23 @@ export function beerReducer(
   action: BeerActions
 ): BeerState {
   switch (action.type) {
+    case LOAD_BEERS:
+      return {
+        ...state,
+        loaded: false,
+      };
+
     case LOAD_BEERS_SUCCESS:
       return {
         ...state,
         beers: action.payload,
         loaded: true,
+      };
+
+    case LOAD_BEERS_FAILURE:
+      return {
+        ...state,
+        loaded: false,
       };
 
     case ADD_BEER:

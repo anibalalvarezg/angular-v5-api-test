@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 
 import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { beerReducer } from './store/beers.reducer';
 
@@ -14,6 +15,7 @@ import { MaterialModule } from './material/material.module';
 import { uiReducer } from './store/ui.reducer';
 import { SharedModule } from './shared/shared.module';
 import { BeersModule } from './beers/beers.module';
+import { BeersEffects } from './store/beers.effects';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -24,12 +26,6 @@ export function localStorageSyncReducer(
   })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
-
-export function initializeAppFactory(
-  beerService: BeerDataService
-): () => Promise<any> {
-  return () => beerService.load();
-}
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,16 +40,9 @@ export function initializeAppFactory(
       { beers: beerReducer, ui: uiReducer },
       { metaReducers }
     ),
+    EffectsModule.forRoot([BeersEffects]),
   ],
-  providers: [
-    BeerDataService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeAppFactory,
-      deps: [BeerDataService],
-      multi: true,
-    },
-  ],
+  providers: [BeerDataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
