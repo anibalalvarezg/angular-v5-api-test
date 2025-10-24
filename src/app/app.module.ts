@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 
@@ -9,12 +10,16 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { beerReducer } from './store/beers.reducer';
 
 import { BeerDataService } from './core/services/beer-data.service';
+import { MaterialModule } from './material/material.module';
+import { uiReducer } from './store/ui.reducer';
+import { SharedModule } from './shared/shared.module';
+import { BeersModule } from './beers/beers.module';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({
-    keys: ['beers'],
+    keys: ['beers'], // Solo persistir beers, NO ui
     rehydrate: true,
   })(reducer);
 }
@@ -31,7 +36,14 @@ export function initializeAppFactory(
   imports: [
     BrowserModule,
     HttpClientModule,
-    StoreModule.forRoot({ beers: beerReducer }, { metaReducers }),
+    BrowserAnimationsModule,
+    MaterialModule,
+    SharedModule,
+    BeersModule,
+    StoreModule.forRoot(
+      { beers: beerReducer, ui: uiReducer },
+      { metaReducers }
+    ),
   ],
   providers: [
     BeerDataService,
