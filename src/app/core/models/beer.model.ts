@@ -2,6 +2,15 @@ export interface Beer {
   sku: string;
   name: string;
   brewery: string;
+  abv: string;
+  ibu: string;
+  country: string;
+}
+
+export interface BeerApiData {
+  sku: string;
+  name: string;
+  brewery: string;
   rating: string;
   category: string;
   sub_category_1: string;
@@ -26,5 +35,5 @@ export interface Beer {
 export interface BeerApiResponse {
   code: number;
   error: boolean;
-  data: Beer[];
+  data: BeerApiData[];
 }

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { environment } from '../../../environments/environment';
-import { Beer, BeerApiResponse } from '../models/beer.model';
+import { Beer, BeerApiResponse, BeerApiData } from '../models/beer.model';
 
 @Injectable()
 export class BeerDataService {
@@ -21,11 +21,22 @@ export class BeerDataService {
       .get<BeerApiResponse>(this.apiUrl, {
         headers: this.apiHeaders,
       })
-      .map(response => response.data)
+      .map(response => this.mapApiDataToBeers(response.data))
       .catch(() => {
         return this.http
           .get<any>('assets/mock-api.json')
-          .map(mockResponse => mockResponse.data);
+          .map(mockResponse => this.mapApiDataToBeers(mockResponse.data));
       });
+  }
+
+  private mapApiDataToBeers(apiData: BeerApiData[]): Beer[] {
+    return apiData.map(item => ({
+      sku: item.sku,
+      name: item.name,
+      brewery: item.brewery,
+      abv: item.abv,
+      ibu: item.ibu,
+      country: item.country,
+    }));
   }
 }

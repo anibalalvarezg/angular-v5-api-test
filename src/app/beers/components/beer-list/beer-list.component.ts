@@ -46,23 +46,12 @@ export class BeerListComponent implements OnInit {
 
         setTimeout(() => {
           const newBeer: Beer = {
-            ...result,
-            rating: '',
-            category: '',
-            sub_category_1: '',
-            sub_category_2: '',
-            sub_category_3: '',
-            description: '',
-            region: '',
-            calories_per_serving_12oz: '',
-            carbs_per_serving_12oz: '',
-            tasting_notes: '',
-            food_pairing: '',
-            suggested_glassware: '',
-            serving_temp_f: '',
-            serving_temp_c: '',
-            beer_type: '',
-            features: '',
+            sku: result.sku,
+            name: result.name,
+            brewery: result.brewery,
+            abv: result.abv.toString(),
+            ibu: result.ibu.toString(),
+            country: result.country,
           };
           this.store.dispatch(new AddBeer(newBeer));
           this.store.dispatch(new StopLoading());
