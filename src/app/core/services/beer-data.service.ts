@@ -11,6 +11,7 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
 
 import { environment } from '../../../environments/environment';
 import { StartLoading, StopLoading } from '../../store/ui.actions';
@@ -40,8 +41,16 @@ export class BeerDataService {
         }
 
         return this.http
-          .get<BeerApiResponse>(this.apiUrl, { headers: this.apiHeaders })
+          .get<BeerApiResponse>(this.apiUrl, {
+            headers: this.apiHeaders,
+          })
           .map(response => response.data)
+          .catch(() => {
+            // Si hay error, se usa el mock-api.json (puede que se acaben los token de la API gratuitos)
+            return this.http
+              .get<any>('assets/mock-api.json')
+              .map(mockResponse => mockResponse.data);
+          })
           .do(beers => {
             this.store.dispatch(new LoadBeersSuccess(beers));
           });
