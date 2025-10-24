@@ -5,10 +5,13 @@
     <!-- Campo SKU -->
     <mat-form-field class="w-100 mb-3">
       <input matInput placeholder="SKU *" formControlName="sku" />
-      <mat-error *ngIf="submitted && f.sku.errors">
+      <mat-error *ngIf="f.sku.errors">
         <span *ngIf="f.sku.errors.required">El SKU es requerido</span>
         <span *ngIf="f.sku.errors.minlength"
           >El SKU debe tener al menos 3 caracteres</span
+        >
+        <span *ngIf="f.sku.errors.pattern"
+          >El SKU solo debe contener números</span
         >
       </mat-error>
     </mat-form-field>

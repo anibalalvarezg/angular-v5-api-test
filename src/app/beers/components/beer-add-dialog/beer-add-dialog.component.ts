@@ -19,7 +19,14 @@ export class BeerAddDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.beerForm = this.fb.group({
-      sku: ['', [Validators.required, Validators.minLength(3)]],
+      sku: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern(/^[0-9]+$/),
+        ],
+      ],
       name: ['', [Validators.required, Validators.minLength(3)]],
       brewery: ['', [Validators.required, Validators.minLength(3)]],
       abv: [0, [Validators.required]],
