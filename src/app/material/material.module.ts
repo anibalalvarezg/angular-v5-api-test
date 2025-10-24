@@ -6,6 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   imports: [
@@ -16,6 +20,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSliderModule,
   ],
   exports: [
     MatToolbarModule,
@@ -24,6 +32,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSliderModule,
   ],
 })
 export class MaterialModule {}

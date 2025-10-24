@@ -1,12 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../material/material.module'; // Para MatTable
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material/material.module';
 
 import { BeerListComponent } from './components/beer-list/beer-list.component';
+import { BeerAddDialogComponent } from './components/beer-add-dialog/beer-add-dialog.component';
+import { BeerEditDialogComponent } from './components/beer-edit-dialog/beer-edit-dialog.component';
+import { BeerDeleteDialogComponent } from './components/beer-delete-dialog/beer-delete-dialog.component';
 
 @NgModule({
-  imports: [CommonModule, MaterialModule],
-  declarations: [BeerListComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
+  declarations: [
+    BeerListComponent,
+    BeerAddDialogComponent,
+    BeerEditDialogComponent,
+    BeerDeleteDialogComponent,
+  ],
   exports: [BeerListComponent],
+  entryComponents: [
+    BeerAddDialogComponent,
+    BeerEditDialogComponent,
+    BeerDeleteDialogComponent,
+  ],
 })
 export class BeersModule {}

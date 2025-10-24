@@ -2,12 +2,18 @@ import { Action } from '@ngrx/store';
 import { Beer } from '../core/models/beer.model';
 
 export const LOAD_BEERS_SUCCESS = '[Beers] Load Beers Success';
+export const ADD_BEER = '[Beers] Add Beer';
 export const DELETE_BEER = '[Beers] Delete Beer';
 export const UPDATE_BEER = '[Beers] Update Beer';
 
 export class LoadBeersSuccess implements Action {
   readonly type = LOAD_BEERS_SUCCESS;
   constructor(public payload: Beer[]) {}
+}
+
+export class AddBeer implements Action {
+  readonly type = ADD_BEER;
+  constructor(public payload: Beer) {}
 }
 
 export class DeleteBeer implements Action {
@@ -20,4 +26,4 @@ export class UpdateBeer implements Action {
   constructor(public payload: Beer) {}
 }
 
-export type BeerActions = LoadBeersSuccess | DeleteBeer | UpdateBeer;
+export type BeerActions = LoadBeersSuccess | AddBeer | DeleteBeer | UpdateBeer;

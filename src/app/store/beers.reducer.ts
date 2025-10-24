@@ -1,6 +1,7 @@
 import {
   BeerActions,
   LOAD_BEERS_SUCCESS,
+  ADD_BEER,
   DELETE_BEER,
   UPDATE_BEER,
 } from './beers.actions';
@@ -16,6 +17,12 @@ export function beerReducer(
         ...state,
         beers: action.payload,
         loaded: true,
+      };
+
+    case ADD_BEER:
+      return {
+        ...state,
+        beers: [...state.beers, action.payload],
       };
 
     case DELETE_BEER:
